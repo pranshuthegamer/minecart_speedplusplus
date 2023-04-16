@@ -1,15 +1,15 @@
-package fi.dy.esav.Minecart_speedplus;
+package me.pranshutg.minecart_speedplusplus;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-public class Minecart_speedplusSignListener implements Listener {
+public class SignListener implements Listener {
 	
-	Minecart_speedplus plugin;
+	App plugin;
 	
-	public Minecart_speedplusSignListener(Minecart_speedplus instance) {
+	public SignListener(App instance) {
 
 		plugin = instance;
 	}

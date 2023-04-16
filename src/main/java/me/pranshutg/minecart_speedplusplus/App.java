@@ -1,4 +1,4 @@
-package fi.dy.esav.Minecart_speedplus;
+package me.pranshutg.minecart_speedplusplus;
 
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
@@ -9,12 +9,12 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Minecart_speedplus extends JavaPlugin {
+public class App extends JavaPlugin {
   Logger log = Logger.getLogger("Minecraft");
   
-  private final Minecart_speedplusVehicleListener VehicleListener = new Minecart_speedplusVehicleListener(this);
+  private final VehicleListener VehicleListener = new VehicleListener(this);
   
-  private final Minecart_speedplusSignListener SignListener = new Minecart_speedplusSignListener(this);
+  private final SignListener SignListener = new SignListener(this);
   
   static double speedmultiplier = 1.25D;
   
@@ -62,7 +62,7 @@ public class Minecart_speedplus extends JavaPlugin {
       } 
       this.result = setSpeedMultiplier(this.multiplier);
       if (this.result) {
-        sender.sendMessage(ChatColor.YELLOW + "multiplier for new Minecarts set to: + this.multiplier);
+        sender.sendMessage(ChatColor.YELLOW + "multiplier for new Minecarts set to: + this.multiplier");
         return true;
       } 
       sender.sendMessage(ChatColor.YELLOW + "can not be set to zero and must be below");

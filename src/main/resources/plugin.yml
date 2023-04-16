@@ -1,5 +1,5 @@
 name: MinecartSpeedPlus
-main: fi.dy.esav.Minecart_speedplus.Minecart_speedplus
+main: me.pranshutg.minecart_speedplusplus.App
 version: 18.0.1
 commands:
    msp:

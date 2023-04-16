@@ -1,10 +1,14 @@
-package fi.dy.esav.Minecart_speedplus;
+package me.pranshutg.minecart_speedplusplus;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.*;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Minecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,21 +17,22 @@ import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.util.Vector;
 
-public class Minecart_speedplusVehicleListener implements Listener {
+public class VehicleListener implements Listener {
 
 	int[] xmodifier = { -1, 0, 1 };
 	int[] ymodifier = { -2, -1, 0, 1, 2 };
 	int[] zmodifier = { -1, 0, 1 };
 
-	int cartx, carty, cartz;
+	Location cartLocation;
 	int blockx, blocky, blockz;
+	Location blockLocation;
 
 	Block block;
-	int blockid;
+	BlockData blockData;
 
 	double line1;
 
-	public static Minecart_speedplus plugin;
+	public static App plugin;
 	Logger log = Logger.getLogger("Minecraft");
 
 	boolean error;
@@ -35,7 +40,7 @@ public class Minecart_speedplusVehicleListener implements Listener {
 	Vector flyingmod = new Vector(10 , 0.01 , 10);
 	Vector noflyingmod = new Vector(1, 1, 1);
 
-	public Minecart_speedplusVehicleListener(Minecart_speedplus instance) {
+	public VehicleListener(App instance) {
 		plugin = instance;
 	}
 
@@ -44,7 +49,7 @@ public class Minecart_speedplusVehicleListener implements Listener {
 		if (event.getVehicle() instanceof Minecart) {
 
 			Minecart cart = (Minecart) event.getVehicle();
-			cart.setMaxSpeed(0.4 * Minecart_speedplus.getSpeedMultiplier());
+			cart.setMaxSpeed(0.4 * App.getSpeedMultiplier());
 
 		}
 	}
@@ -58,20 +63,20 @@ public class Minecart_speedplusVehicleListener implements Listener {
 			for (int xmod : xmodifier) {
 				for (int ymod : ymodifier) {
 					for (int zmod : zmodifier) {
-
-						cartx = cart.getLocation().getBlockX();
-						carty = cart.getLocation().getBlockY();
-						cartz = cart.getLocation().getBlockZ();
-						blockx = cartx + xmod;
-						blocky = carty + ymod;
-						blockz = cartz + zmod;
+						cartLocation = cart.getLocation();
+						blockx = (int)cartLocation.getX() + xmod;
+						blocky = (int)cartLocation.getY() + ymod;
+						blockz = (int)cartLocation.getZ() + zmod;
+						blockLocation.setX(blockx);
+						blockLocation.setY(blocky);
+						blockLocation.setZ(blockz);
 						block = cart.getWorld().getBlockAt(blockx, blocky,
 								blockz);
-						blockid = cart.getWorld().getBlockTypeIdAt(blockx,
-								blocky, blockz);
+						blockData = cart.getWorld().getBlockData(blockLocation);
 
-						if (blockid == Material.WALL_SIGN.getId()
-						    || blockid == Material.SIGN_POST.getId()) {
+						if (blockData instanceof WallSign
+						    || blockData instanceof Sign)
+						{
 							Sign sign = (Sign) block.getState();
 							String[] text = sign.getLines();
 
